@@ -164,6 +164,29 @@ describe('SinglyLinkedList', () => {
     expect(list.size()).toBe(1)
   })
 
+  it('Middle node of linked list', () => {
+    const list = new LinkedList()
+    list.addFirst(1)
+
+    // Middle node for list having single node
+    expect(list.findMiddle().data).toEqual(1)
+
+    list.addLast(2)
+    list.addLast(3)
+    list.addLast(4)
+    list.addLast(5)
+    list.addLast(6)
+    list.addLast(7)
+
+    // Middle node for list having odd number of nodes
+    expect(list.findMiddle().data).toEqual(4)
+
+    list.addLast(10)
+
+    // Middle node for list having even number of nodes
+    expect(list.findMiddle().data).toEqual(5)
+  })
+
   it('Check Iterator', () => {
     const list = new LinkedList()
 
@@ -198,5 +221,30 @@ describe('SinglyLinkedList', () => {
     expect(list.size()).toEqual(5)
     list.clean()
     expect(list.isEmpty()).toBe(true)
+  })
+
+  it('should shift every node by k steps towards right, shifts tail nodes towards the start and change head of the list', () => {
+    // Case 0: When head of list is null
+    const tempNode = new LinkedList()
+    expect(tempNode.get()).toEqual([])
+
+    // Creating list
+    const headNode = new LinkedList([10, 20, 30, 40, 50])
+
+    // Case 1: when k = 0 => List should be unaffected
+    headNode.rotateListRight(0)
+    expect(headNode.get()).toEqual([10, 20, 30, 40, 50])
+
+    // Case 2: Rotate right by 2 steps
+    headNode.rotateListRight(2)
+    expect(headNode.get()).toEqual([40, 50, 10, 20, 30])
+
+    // Case 3: Rotate right by 12 steps
+    headNode.rotateListRight(12)
+    expect(headNode.get()).toEqual([20, 30, 40, 50, 10])
+
+    // Case 4: when k = length of the list = 5 => List should be unaffected
+    headNode.rotateListRight(5)
+    expect(headNode.get()).toEqual([20, 30, 40, 50, 10])
   })
 })
